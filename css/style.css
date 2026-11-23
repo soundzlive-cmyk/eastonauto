@@ -350,3 +350,9 @@ textarea{min-height:120px;resize:vertical}
 .foot-about .brand{padding:8px 12px}
 @media (max-width:1200px) and (min-width:981px){.brand-logo{height:36px}}
 @media (max-width:640px){.brand-logo{height:34px}}
+/* dark-background logo, no badge */
+.brand,.foot-about .brand{background:none;padding:0;border-radius:0}
+.brand-logo{height:46px;width:auto}
+.brand-logo-full{width:230px}
+@media (max-width:1200px) and (min-width:981px){.brand-logo{height:40px}}
+@media (max-width:640px){.brand-logo{height:38px}}
