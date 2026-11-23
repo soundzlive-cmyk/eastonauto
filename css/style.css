@@ -343,3 +343,10 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:1200px) and (min-width:981px){.brand-logo{height:48px}}
 @media (max-width:640px){.brand-logo{height:44px}}
 .brand-logo{height:64px}@media (max-width:640px){.brand-logo{height:46px}}
+/* original-color logo on white badge */
+.brand{background:#fff;border-radius:6px;padding:4px 10px;line-height:0}
+.brand-logo{height:40px;width:auto}
+.brand-logo-full{width:190px;height:auto}
+.foot-about .brand{padding:8px 12px}
+@media (max-width:1200px) and (min-width:981px){.brand-logo{height:36px}}
+@media (max-width:640px){.brand-logo{height:34px}}
