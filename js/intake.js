@@ -12,15 +12,26 @@
 
   var FLOWS = {
     insurance: { title: 'Insurance claim', steps: [
-      { key: 'filed', type: 'choice', q: 'Have you already opened a claim with an insurance company?', opts: ['Yes, claim is open', 'Not yet', 'Not sure'], label: 'Claim filed' },
-      { key: 'whose', type: 'choice', q: 'Whose insurance is covering it?', opts: ['My insurance', "The other driver's insurance", 'Not sure yet'], label: 'Covering insurer' },
+      { key: 'safe', type: 'choice', q: 'First, is everyone okay? Were there any injuries?', opts: ['No injuries', 'Minor injuries', 'Yes, someone was hurt'], label: 'Injuries' },
+      { key: 'kind', type: 'choice', q: 'What kind of incident was it?', opts: ['Hit another vehicle', 'Hit by another vehicle', 'Parked car was hit', 'Hit an object or animal', 'Weather, hail or tree', 'Theft or vandalism', 'Something else'], label: 'Incident type' },
+      { key: 'date', type: 'date', q: 'When did it happen?', label: 'Incident date', skip: true },
+      { key: 'where', type: 'text', q: 'Where did it happen? Street and town is fine.', ph: 'e.g. Rt 138 at Central St, Easton', label: 'Location', skip: true },
+      { key: 'police', type: 'choice', q: 'Was a police report made?', opts: ['Yes', 'No', 'Not sure'], label: 'Police report' },
+      { key: 'policeNo', type: 'text', q: 'Report number or department, if you have it.', ph: 'e.g. Easton PD #26-1234', label: 'Report number', skip: true, when: function (a) { return a.police === 'Yes'; } },
+      { key: 'other', type: 'choice', q: 'Was another driver involved?', opts: ['Yes', 'No', 'Hit and run'], label: 'Other driver', when: function (a) { return /vehicle|Parked/.test(a.kind); } },
+      { key: 'otherInfo', type: 'textarea', q: "The other driver's name and their insurance company, if you got them.", ph: 'e.g. John Smith, Progressive', label: 'Other driver info', skip: true, when: function (a) { return a.other === 'Yes'; } },
+      { key: 'fault', type: 'choice', q: 'Who do you think was at fault?', opts: ['The other driver', 'Me', 'Shared or unclear'], label: 'Fault', when: function (a) { return a.other === 'Yes'; } },
+      { key: 'filed', type: 'choice', q: 'Have you opened a claim yet?', opts: ['Yes, claim is open', 'Not yet', 'Not sure'], label: 'Claim filed' },
+      { key: 'whose', type: 'choice', q: 'Whose insurance is it going through?', opts: ['My insurance', "The other driver's insurance", 'Not sure yet'], label: 'Claim through' },
       { key: 'insurer', type: 'text', q: 'Which insurance company?', ph: 'e.g. Safety, Arbella, Progressive', label: 'Insurance company', skip: true },
       { key: 'claimNo', type: 'text', q: 'Claim number, if you have it.', ph: 'Claim #', label: 'Claim number', skip: true, when: function (a) { return a.filed === 'Yes, claim is open'; } },
-      { key: 'date', type: 'date', q: 'When did the accident happen?', label: 'Accident date', skip: true },
+      { key: 'holder', type: 'text', q: 'Name of the policyholder, if it is not you.', ph: 'Leave blank if it is you', label: 'Policyholder', skip: true },
       { key: 'drivable', type: 'choice', q: 'Is the car drivable right now?', opts: ['Yes, drivable', 'No, needs a tow', 'Not sure'], label: 'Drivable' },
+      { key: 'carAt', type: 'text', q: 'Where is the car now?', ph: 'e.g. Tow yard in Brockton, or at home', label: 'Vehicle location', skip: true, when: function (a) { return a.drivable !== 'Yes, drivable'; } },
       VEHICLE,
-      { key: 'damage', type: 'textarea', q: 'Tell us what happened and where the car is damaged.', ph: 'e.g. Rear-ended at a light, rear bumper and trunk pushed in', label: 'Damage' },
-      PHOTOS, CONTACT
+      { key: 'damage', type: 'textarea', q: 'Describe what happened and where the car is damaged.', ph: 'e.g. Rear-ended at a light, rear bumper and trunk pushed in', label: 'Damage' },
+      { key: 'photos', type: 'file', q: 'Add photos of the damage, the scene, and the other car or plate if you have them. Or skip.', label: 'Photos' },
+      CONTACT
     ]},
     repair: { title: 'Simple repair', steps: [
       { key: 'kind', type: 'choice', q: 'What needs fixing?', opts: ['Dent or ding', 'Scratch or scuff', 'Bumper damage', 'Paint touch-up', 'Something else'], label: 'Repair type' },
@@ -94,7 +105,7 @@
   function pick(v, echoed) {
     flow = FLOWS[v]; answers.type = flow.title;
     if (!echoed) me(flow.title);
-    if (v === 'insurance') bot('Good call. Our owner, Jose Andrade, is a licensed auto damage appraiser and we work with every insurer. A few quick questions.');
+    if (v === 'insurance') bot('Good call. Our owner, Jose Andrade, is a licensed auto damage appraiser and we work with every insurer. A few quick questions about the incident and we will take it from there.');
     else if (v === 'custom') bot('Love it. Tell us about the project and we will follow up to talk it through.');
     else bot('Easy. A few quick questions and we will get you an estimate.');
     step = -1; next();
