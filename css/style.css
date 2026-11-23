@@ -328,3 +328,11 @@ textarea{min-height:120px;resize:vertical}
 .brand .b2{font-family:var(--body);font-weight:600;font-size:10.5px;letter-spacing:.47em;color:var(--red);margin-top:5px}
 .foot-about .brand .b1{font-size:23px}
 @media (max-width:640px){.brand-mark{width:36px;height:36px}.brand .b1{font-size:20px}.brand .b2{font-size:8.5px}}
+.brand-mark{display:none}
+.brand-car{width:78px;height:29px;flex-shrink:0}
+.brand{gap:12px}
+.brand .b2{letter-spacing:.42em}
+.foot-about .tagline{margin-top:14px;color:#fff;font-style:italic}
+.foot-about .tagline b{color:var(--red)}
+@media (max-width:640px){.brand-car{width:58px;height:22px}}
+.brand-car{width:92px;height:34px}@media (max-width:640px){.brand-car{width:62px;height:23px}}
