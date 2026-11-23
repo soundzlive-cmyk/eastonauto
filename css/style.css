@@ -320,3 +320,11 @@ textarea{min-height:120px;resize:vertical}
 .g-item:hover .proj-img{transform:scale(1.04)}
 @media (max-width:980px){.proj-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.proj-grid{grid-template-columns:1fr}}
+/* brand (modern logo) */
+.brand{display:inline-flex;align-items:center;gap:11px;flex-shrink:0}
+.brand-mark{width:44px;height:44px;flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1}
+.brand .b1{font-family:var(--head);font-weight:900;font-size:25px;letter-spacing:.06em;color:#fff}
+.brand .b2{font-family:var(--body);font-weight:600;font-size:10.5px;letter-spacing:.47em;color:var(--red);margin-top:5px}
+.foot-about .brand .b1{font-size:23px}
+@media (max-width:640px){.brand-mark{width:36px;height:36px}.brand .b1{font-size:20px}.brand .b2{font-size:8.5px}}
