@@ -337,3 +337,9 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:640px){.brand-car{width:58px;height:22px}}
 .brand-car{width:92px;height:34px}@media (max-width:640px){.brand-car{width:62px;height:23px}}
 .nav a.navlink{white-space:nowrap}.nav-bar{gap:22px}@media (max-width:1200px) and (min-width:981px){.nav{gap:16px}.brand-car{width:70px;height:26px}.brand .b1{font-size:22px}}
+/* uploaded logo */
+.brand-logo{height:58px;width:auto}
+.brand-logo-full{width:220px;height:auto}
+@media (max-width:1200px) and (min-width:981px){.brand-logo{height:48px}}
+@media (max-width:640px){.brand-logo{height:44px}}
+.brand-logo{height:64px}@media (max-width:640px){.brand-logo{height:46px}}
