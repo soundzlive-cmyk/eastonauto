@@ -44,13 +44,54 @@
     list.textContent = Array.prototype.map.call(fileIn.files, function (f) { return f.name; }).join(', ');
   });
 
-  // forms: no backend yet, show a confirmation instead
-  document.querySelectorAll('form[data-demo]').forEach(function (f) {
+  // forms: send to the shop's Google Sheet + email (js/send.js), or fall back to the email app
+  function labelFor(f, el) {
+    var l = el.id && f.querySelector('label[for="' + el.id + '"]');
+    if (!l) { var box = el.closest('.radio-row'); l = box && box.parentNode.querySelector('label'); }
+    return l ? l.textContent.replace(/\*/g, '').trim() : (el.name || 'Field');
+  }
+  function collect(f) {
+    var out = [], files = [];
+    Array.prototype.forEach.call(f.querySelectorAll('input, select, textarea'), function (el) {
+      if (el.type === 'file') { files = files.concat(Array.prototype.slice.call(el.files)); return; }
+      if (el.type === 'submit' || el.type === 'button') return;
+      if (el.type === 'radio' || el.type === 'checkbox') { if (!el.checked) return; out.push([labelFor(f, el), el.parentNode.textContent.trim()]); return; }
+      var v = el.tagName === 'SELECT' ? (el.value ? el.options[el.selectedIndex].text : '') : el.value.trim();
+      if (v) out.push([labelFor(f, el), v]);
+    });
+    return { fields: out, files: files };
+  }
+  function pick(fields, re) { for (var i = 0; i < fields.length; i++) if (re.test(fields[i][0])) return fields[i][1]; return ''; }
+
+  document.querySelectorAll('form[data-form]').forEach(function (f) {
+    var kind = f.getAttribute('data-form');
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      f.style.display = 'none';
-      var ok = f.parentNode.querySelector('.form-success');
-      if (ok) { ok.classList.add('show'); ok.scrollIntoView({ block: 'center' }); }
+      if (!f.reportValidity()) return;
+      var d = collect(f), btn = f.querySelector('[type=submit]');
+      var name = pick(d.fields, /name/i), email = pick(d.fields, /^email/i);
+      var showOk = function () {
+        f.style.display = 'none';
+        var ok = f.parentNode.querySelector('.form-success');
+        if (ok) { ok.classList.add('show'); ok.scrollIntoView({ block: 'center' }); }
+      };
+      if (window.EAB && window.EAB.enabled) {
+        var label = btn.innerHTML; btn.disabled = true; btn.textContent = 'Sending...';
+        var err = f.querySelector('.form-error');
+        if (err) err.hidden = true;
+        window.EAB.send({ source: kind, jobType: kind, name: name, phone: pick(d.fields, /phone/i), email: email, pref: pick(d.fields, /reach/i), fields: d.fields }, d.files)
+          .then(showOk)
+          .catch(function () {
+            btn.disabled = false; btn.innerHTML = label;
+            if (!err) { err = document.createElement('p'); err.className = 'form-note form-error'; err.style.color = 'var(--red)'; btn.parentNode.appendChild(err); }
+            err.hidden = false;
+            err.innerHTML = 'Sorry, that did not go through. Please try again or call <a href="tel:+15082383611">(508) 238-3611</a>.';
+          });
+      } else {
+        var body = d.fields.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n');
+        location.href = 'mailto:contactus@eastonautobody.net?subject=' + encodeURIComponent(kind + (name ? ' from ' + name : '')) + '&body=' + encodeURIComponent(body + (d.files.length ? '\n\n(Please attach your photos to this email.)' : ''));
+        showOk();
+      }
     });
   });
 
