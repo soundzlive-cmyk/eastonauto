@@ -1,6 +1,6 @@
 /* Easton Auto Body — site styles */
 :root{
-  --red:#d7141c; --red-dark:#a90f15; --black:#0b0b0c; --ink:#141416; --char:#1c1d20;
+  --red:#2563eb; --red-dark:#1a44c2; /* accent: royal blue from business card (var name kept) */ --black:#0b0b0c; --ink:#141416; --char:#1c1d20;
   --line:#2c2d31; --grey:#f2f2f3; --muted:#6b6d73; --text:#1a1a1d; --white:#fff;
   --radius:6px; --shadow:0 6px 22px rgba(0,0,0,.12);
   --head:'Montserrat',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
@@ -135,7 +135,7 @@ h1,h2,h3,h4{font-family:var(--head);line-height:1.1;font-weight:800}
 .cta-band{background:var(--red);color:#fff}
 .cta-band .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:34px 24px;flex-wrap:wrap}
 .cta-band h2{font-size:clamp(22px,2.6vw,30px);font-style:italic;font-weight:900}
-.cta-band p{color:#ffe0e1}
+.cta-band p{color:#dbe6ff}
 
 /* ---------- content blocks (inner pages) ---------- */
 .two-col{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
@@ -218,7 +218,7 @@ legend{font-family:var(--head);font-weight:800;font-size:16px;margin-bottom:12px
 legend::before{content:"";width:20px;height:3px;background:var(--red)}
 label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
 input,select,textarea{width:100%;font:15px var(--body);padding:11px 13px;border:1px solid #cfcfd4;border-radius:5px;background:#fafafb;transition:.15s}
-input:focus,select:focus,textarea:focus{outline:0;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(215,20,28,.15)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
 textarea{min-height:120px;resize:vertical}
 .radio-row{display:flex;gap:18px;flex-wrap:wrap}
 .radio-row label{display:flex;align-items:center;gap:7px;font-weight:500}
@@ -359,7 +359,7 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:640px){.brand-logo{height:38px}}
 /* licensed appraiser / claims */
 .appraiser{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:start}
-.badge-seal{aspect-ratio:1;border-radius:50%;border:3px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 0 0 8px rgba(215,20,28,.15),inset 0 0 0 6px #0e0e10,inset 0 0 0 7px #3a3a3f;background:radial-gradient(circle,#1f1f23,#0e0e10)}
+.badge-seal{aspect-ratio:1;border-radius:50%;border:3px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 0 0 8px rgba(37,99,235,.15),inset 0 0 0 6px #0e0e10,inset 0 0 0 7px #3a3a3f;background:radial-gradient(circle,#1f1f23,#0e0e10)}
 .badge-seal svg{width:44px;height:44px;color:var(--red);margin-bottom:6px}
 .badge-seal b{font-family:var(--head);font-style:italic;font-weight:900;font-size:26px;letter-spacing:.04em}
 .badge-seal span{font-size:13px;color:#cfcfd4;text-transform:uppercase;letter-spacing:.12em;line-height:1.35;margin-top:4px}
@@ -373,7 +373,7 @@ textarea{min-height:120px;resize:vertical}
 .ab-left{display:flex;gap:14px;align-items:center}
 .ab-left svg{width:36px;height:36px;flex-shrink:0}
 .ab-left b{display:block;font-size:17px}
-.ab-left span{font-size:14px;color:#ffe0e1}
+.ab-left span{font-size:14px;color:#dbe6ff}
 @media (max-width:980px){.appraiser{grid-template-columns:1fr}.badge-seal{width:180px}}
 @media (max-width:640px){.claim-grid{grid-template-columns:1fr}}
 .badge-seal em{font-style:normal;font-weight:700;font-size:14px;color:#fff;margin-top:8px}
@@ -432,3 +432,8 @@ textarea{min-height:120px;resize:vertical}
 .hero-bg,.page-hero .bg{z-index:0}
 .hero .wrap,.page-hero .wrap{z-index:2}
 @media (min-width:1400px){.hero-bg{width:58%}.hero-bg::before{background:linear-gradient(90deg,var(--black) 0%,rgba(11,11,12,.75) 25%,rgba(11,11,12,.15) 60%,transparent 100%)}}
+/* blue Easton Auto Body script logo (from business card) */
+.brand-logo{height:66px;width:auto}
+.brand-logo-full{width:240px}
+@media (max-width:1200px) and (min-width:981px){.brand-logo{height:52px}}
+@media (max-width:640px){.brand-logo{height:46px}}
