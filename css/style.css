@@ -437,3 +437,5 @@ textarea{min-height:120px;resize:vertical}
 .brand-logo-full{width:240px}
 @media (max-width:1200px) and (min-width:981px){.brand-logo{height:52px}}
 @media (max-width:640px){.brand-logo{height:46px}}
+/* blue car: recolor red hero video/poster to brand blue */
+.hero-bg{filter:hue-rotate(222deg) saturate(1.15)}
