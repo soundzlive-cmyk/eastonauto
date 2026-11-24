@@ -3,7 +3,7 @@
 (function () {
   // Paste the Google Apps Script "Web app URL" here (ends in /exec).
   // Left empty, forms fall back to opening the customer's email app.
-  var SHEET_URL = '';
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxBpr4Izv8tJRma3WbbjY00Pt5zZTHOmCyaCFPV_mGHeB8u5mTmHRb8rmd0mXcNdf8F/exec';
 
   // Shrink photos to keep uploads fast (max 1600px, JPEG).
   function shrink(file) {
