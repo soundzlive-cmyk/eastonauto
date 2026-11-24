@@ -302,6 +302,7 @@ textarea{min-height:120px;resize:vertical}
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .member{display:flex;gap:22px;align-items:flex-start;background:var(--char);color:#fff;border-radius:10px;padding:28px;border-left:4px solid var(--red)}
 .avatar{width:76px;height:76px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-family:var(--head);font-weight:900;font-style:italic;font-size:26px;flex-shrink:0}
+.avatar-photo{width:120px;height:120px;object-fit:cover;border:3px solid var(--red);box-shadow:0 6px 18px rgba(0,0,0,.35)}
 .member h3{font-size:21px}
 .member .role{display:block;color:var(--red);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:4px 0 10px}
 .member p{color:#cfcfd4;font-size:15px}
