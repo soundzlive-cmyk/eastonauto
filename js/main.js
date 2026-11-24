@@ -89,7 +89,7 @@
           });
       } else {
         var body = d.fields.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n');
-        location.href = 'mailto:contactus@eastonautobody.net?subject=' + encodeURIComponent(kind + (name ? ' from ' + name : '')) + '&body=' + encodeURIComponent(body + (d.files.length ? '\n\n(Please attach your photos to this email.)' : ''));
+        location.href = 'mailto:eastonautobody@verizon.net?subject=' + encodeURIComponent(kind + (name ? ' from ' + name : '')) + '&body=' + encodeURIComponent(body + (d.files.length ? '\n\n(Please attach your photos to this email.)' : ''));
         showOk();
       }
     });
