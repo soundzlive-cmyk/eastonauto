@@ -433,9 +433,9 @@ textarea{min-height:120px;resize:vertical}
 .hero .wrap,.page-hero .wrap{z-index:2}
 @media (min-width:1400px){.hero-bg{width:58%}.hero-bg::before{background:linear-gradient(90deg,var(--black) 0%,rgba(11,11,12,.75) 25%,rgba(11,11,12,.15) 60%,transparent 100%)}}
 /* blue Easton Auto Body script logo (from business card) */
-.brand-logo{height:66px;width:auto}
+.brand-logo{height:72px;width:auto}
 .brand-logo-full{width:240px}
 @media (max-width:1200px) and (min-width:981px){.brand-logo{height:52px}}
-@media (max-width:640px){.brand-logo{height:46px}}
+@media (max-width:640px){.brand-logo{height:52px}}
 /* blue car: recolor red hero video/poster to brand blue */
 .hero-bg{filter:hue-rotate(222deg) saturate(1.15)}
