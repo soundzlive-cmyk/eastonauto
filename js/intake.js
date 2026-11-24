@@ -2,9 +2,8 @@
 (function () {
   var SHOP_EMAIL = 'contactus@eastonautobody.net';
   var SHOP_PHONE = '(508) 238-3611', SHOP_TEL = '+15082383611';
-  // Set this to a Formspree (or similar) endpoint to send requests straight to the shop,
-  // photos included. Left empty, "Send" opens the customer's email app instead.
-  var FORM_ENDPOINT = '';
+  // Requests are sent through js/send.js (Google Sheet + email). If that is not set up,
+  // "Send" opens the customer's email app instead.
 
   var VEHICLE = { key: 'vehicle', type: 'text', q: 'What vehicle is it? Year, make and model.', ph: 'e.g. 2019 Honda Accord', label: 'Vehicle' };
   var PHOTOS = { key: 'photos', type: 'file', q: 'Photos help us a lot. Add a few of the damage or the area, or skip.', label: 'Photos' };
@@ -205,15 +204,10 @@
   function submit(L, btn) {
     var text = L.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n');
     var subject = 'New ' + answers.type.toLowerCase() + ' request from ' + answers.name;
-    if (FORM_ENDPOINT) {
+    if (window.EAB && window.EAB.enabled) {
       btn.disabled = true; btn.textContent = 'Sending...';
-      var fd = new FormData();
-      fd.append('_subject', subject);
-      L.forEach(function (r) { fd.append(r[0], r[1]); });
-      if (answers.email) fd.append('_replyto', answers.email);
-      files.forEach(function (f) { fd.append('photos', f); });
-      fetch(FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
-        .then(function (r) { if (!r.ok) throw 0; done(); })
+      window.EAB.send({ source: 'Start a job assistant', jobType: answers.type, name: answers.name, phone: answers.phone || '', email: answers.email || '', pref: answers.pref || '', fields: L }, files)
+        .then(done)
         .catch(function () { btn.disabled = false; btn.textContent = 'Send to the shop'; bot('Sorry, that did not go through. Please try again or call <a href="tel:' + SHOP_TEL + '">' + SHOP_PHONE + '</a>.'); });
     } else {
       location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text + '\n\n(Sent from the website intake assistant)');
