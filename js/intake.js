@@ -1,6 +1,6 @@
 // Easton Auto Body — job intake assistant (scripted guided chat, no AI backend)
 (function () {
-  var SHOP_EMAIL = 'contactus@eastonautobody.net';
+  var SHOP_EMAIL = 'eastonautobody@verizon.net';
   var SHOP_PHONE = '(508) 238-3611', SHOP_TEL = '+15082383611';
   // Requests are sent through js/send.js (Google Sheet + email). If that is not set up,
   // "Send" opens the customer's email app instead.
