@@ -16,6 +16,27 @@
     els.forEach(function (el) { io.observe(el); });
   } else els.forEach(function (el) { el.classList.add('in'); });
 
+  // Google reviews carousel: auto-scrolls, pauses on hover/focus, honours reduced motion
+  document.querySelectorAll('.rv-carousel').forEach(function (c) {
+    var track = c.querySelector('.rv-track'), slides = track.children, dots = c.querySelector('.rv-dots'), i = 0, t;
+    if (slides.length < 2) return;
+    dots.removeAttribute('aria-hidden');
+    for (var k = 0; k < slides.length; k++) (function (k) {
+      var d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', 'Show review ' + (k + 1));
+      d.addEventListener('click', function () { go(k); }); dots.appendChild(d);
+    })(k);
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      track.style.transform = 'translateX(' + (-100 * i) + '%)';
+      Array.prototype.forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === i); });
+    }
+    function play() { stop(); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) t = setInterval(function () { go(i + 1); }, 6000); }
+    function stop() { clearInterval(t); }
+    c.addEventListener('mouseenter', stop); c.addEventListener('mouseleave', play);
+    c.addEventListener('focusin', stop); c.addEventListener('focusout', play);
+    go(0); play();
+  });
+
   // before/after sliders
   document.querySelectorAll('.slider').forEach(function (s) {
     var r = s.querySelector('input'), top = s.querySelector('.top'), h = s.querySelector('.handle');

@@ -134,6 +134,15 @@ h1,h2,h3,h4{font-family:var(--head);line-height:1.1;font-weight:800}
 .g-rating strong{font-family:var(--head);font-size:26px;vertical-align:middle}
 .g-rating .stars{font-size:18px;vertical-align:middle}
 .g-rating small{display:block;font-size:13px;color:var(--muted)}
+.rv-carousel{position:relative;overflow:hidden}
+.rv-track{display:flex;transition:transform .6s ease}
+.rv-slide{flex:0 0 100%;margin:0;padding-right:4px}
+.rv-slide blockquote{font-style:italic;font-size:15px;margin:6px 0 8px}
+.rv-slide figcaption{font-size:14px}
+.rv-dots{display:flex;gap:7px;margin-top:10px}
+.rv-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:#c9c9cf;cursor:pointer}
+.rv-dots button.on{background:var(--red)}
+.rv-slide figcaption a{color:var(--red);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .review-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:14px;font-weight:600}
 .review-links a{color:var(--red);text-decoration:underline;text-underline-offset:3px}
 .why-photo{align-self:stretch;margin:-30px -24px -30px 0;min-height:200px;background:url(../img/shop-sign.jpg?v=3) center/cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent,#000 30%)}
