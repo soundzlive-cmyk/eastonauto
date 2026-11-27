@@ -1,4 +1,4 @@
-// Easton Auto Body — job intake assistant (scripted guided chat, no AI backend)
+// Easton Auto Body — Easton Auto Agent: job intake chat (scripted guided flow, no AI backend)
 (function () {
   var SHOP_EMAIL = 'eastonautobody@verizon.net';
   var SHOP_PHONE = '(508) 238-3611', SHOP_TEL = '+15082383611';
@@ -51,10 +51,10 @@
 
   function build() {
     var launch = el('button', 'ia-launch', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Start a job</span>');
-    launch.type = 'button'; launch.setAttribute('aria-label', 'Open job intake assistant');
+    launch.type = 'button'; launch.setAttribute('aria-label', 'Open Easton Auto Agent');
     root = el('div', 'ia-panel');
-    root.setAttribute('role', 'dialog'); root.setAttribute('aria-label', 'Job intake assistant'); root.hidden = true;
-    root.innerHTML = '<div class="ia-head"><div><strong>Easton Auto Body</strong><span>Job intake assistant</span></div>' +
+    root.setAttribute('role', 'dialog'); root.setAttribute('aria-label', 'Easton Auto Agent'); root.hidden = true;
+    root.innerHTML = '<div class="ia-head"><div><strong>Easton Auto Agent</strong><span>Easton Auto Body &middot; Job intake</span></div>' +
       '<button type="button" class="ia-restart" title="Start over" aria-label="Start over">&#8634;</button>' +
       '<button type="button" class="ia-close" aria-label="Close">&times;</button></div>' +
       '<div class="ia-log" aria-live="polite"></div><div class="ia-input"></div>';
@@ -86,7 +86,7 @@
 
   function start() {
     log.innerHTML = ''; input.innerHTML = ''; flow = null; step = -1; answers = {}; files = [];
-    bot('Hi! I can get your job started and send the details to the shop. What are we working on?');
+    bot('Hi! I am the Easton Auto Agent. I can get your job started and send the details to the shop. What are we working on?');
     choices([['Insurance claim', 'insurance'], ['Simple repair', 'repair'], ['Custom job', 'custom'], ['I just have a question', 'q']], function (v, label) {
       me(label);
       if (v === 'q') { bot('No problem. Call us at <a href="tel:' + SHOP_TEL + '">' + SHOP_PHONE + '</a> or email <a href="mailto:' + SHOP_EMAIL + '">' + SHOP_EMAIL + '</a>.'); return restartBtn(); }
@@ -206,11 +206,11 @@
     var subject = 'New ' + answers.type.toLowerCase() + ' request from ' + answers.name;
     if (window.EAB && window.EAB.enabled) {
       btn.disabled = true; btn.textContent = 'Sending...';
-      window.EAB.send({ source: 'Start a job assistant', jobType: answers.type, name: answers.name, phone: answers.phone || '', email: answers.email || '', pref: answers.pref || '', fields: L }, files)
+      window.EAB.send({ source: 'Easton Auto Agent', jobType: answers.type, name: answers.name, phone: answers.phone || '', email: answers.email || '', pref: answers.pref || '', fields: L }, files)
         .then(done)
         .catch(function () { btn.disabled = false; btn.textContent = 'Send to the shop'; bot('Sorry, that did not go through. Please try again or call <a href="tel:' + SHOP_TEL + '">' + SHOP_PHONE + '</a>.'); });
     } else {
-      location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text + '\n\n(Sent from the website intake assistant)');
+      location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text + '\n\n(Sent from the Easton Auto Agent on the website)');
       bot('Your email app should open with everything filled in. Just hit send' + (files.length ? ', and attach your photos to that email.' : '.') + ' Prefer to talk? Call <a href="tel:' + SHOP_TEL + '">' + SHOP_PHONE + '</a>.');
     }
   }
